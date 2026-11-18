@@ -1,0 +1,71 @@
+Exp No: 2
+IMPLEMENT BUFFER OVERFLOW ATTACK USING PYTHON
+Date:
+
+AIM:
+To implement and understand the concept of a Buffer Overflow attack using Python and demonstrate how to prevent buffer overflow by restricting input size.
+
+Software Requirements:
+• Python 3
+• IDLE / VS Code / PyCharm
+• Windows or Linux OS
+
+1. Theory:
+A Buffer Overflow occurs when a program receives more data than the allocated buffer can store.
+For example, if a buffer can store only 10 characters but the user enters 20 characters, the extra data exceeds the buffer capacity.
+In Python, strings automatically manage memory, so ordinary Python programs do not produce the same memory-corruption behavior as unsafe C programs. We can simulate the concept and demonstrate input protection.
+
+2. Algorithm:
+1. Start the program.
+2. Set the buffer size to 10.
+3. Get input from the user.
+4. Calculate the length of the input.
+5. Check whether the input exceeds the buffer size.
+6. If the input exceeds 10 characters, display a warning.
+7. Otherwise, accept the input.
+8. Stop the program.
+
+3. Python Program:
+BUFFER_SIZE = 10
+
+print("BUFFER OVERFLOW DEMONSTRATION")
+print("--------------------------------")
+data = input("Enter the data: ")
+input_size = len(data)
+
+if input_size > BUFFER_SIZE:
+    print("Buffer Overflow Detected!")
+    print(f"Buffer Size: {BUFFER_SIZE}")
+    print(f"Input Size: {input_size}")
+    print("Warning: Input exceeds buffer capacity!")
+else:
+    print("Input Accepted Successfully")
+    print(f"Buffer Size: {BUFFER_SIZE}")
+    print(f"Input Size: {input_size}")
+    print(f"Stored Data: {data}")
+
+print("Program Completed")
+
+
+4. Sample Output 1 – Normal Input:
+BUFFER OVERFLOW DEMONSTRATION
+--------------------------------
+Enter the data: Hello
+Input Accepted Successfully
+Buffer Size: 10
+Input Size: 5
+Stored Data: Hello
+Program Completed
+
+5. Sample Output 2 – Overflow Simulation:
+BUFFER OVERFLOW DEMONSTRATION
+--------------------------------
+Enter the data: HelloPythonProgramming 
+Buffer Overflow Detected!
+Buffer Size: 10
+Input Size: 22
+Warning: Input exceeds buffer capacity!
+Program Completed
+
+RESULT:
+Buffer overflow concept was simulated using Python, and buffer overflow was prevented by validating and restricting input size.

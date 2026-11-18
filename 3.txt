@@ -1,0 +1,63 @@
+Exp No: 3
+IMPLEMENT CROSS-SITE SCRIPTING (XSS) AND PREVENT XSS
+Date:
+
+AIM:
+To demonstrate Cross-Site Scripting and implement a method to prevent XSS attacks.
+
+Software: Python 3, Flask, Web Browser.
+
+Step 1: Install Flask
+pip install flask
+
+Step 2: Create xss.py
+from flask import Flask, request, render_template_string
+
+app = Flask(__name__)
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    result = ""
+    if request.method == "POST":
+        name = request.form["name"]
+        # Safe output: Jinja automatically escapes HTML
+        result = name
+    return render_template_string("""
+<html>
+<body>
+<h2>XSS Prevention Demo</h2>
+<form method="POST">
+Enter Name:
+<input type="text" name="name">
+<input type="submit" value="Submit">
+</form>
+<h3>Output:</h3>
+<p>{{ result }}</p>
+</body>
+</html>
+""", result=result)
+
+if __name__ == "__main__":
+    app.run(debug=False)
+
+Step 3: Run the program
+python xss.py
+
+Open the browser:
+http://127.0.0.1:5000
+
+Test input:
+<script>alert('XSS')</script>
+
+Expected output:
+The browser displays the script as escaped text rather than executing it.
+
+XSS prevention methods:
+1. HTML output encoding.
+2. Input validation.
+3. Avoid unsafe HTML insertion.
+4. Use Content Security Policy (CSP).
+5. Use secure framework templates.
+
+RESULT:
+XSS was demonstrated using a local web application, and automatic HTML escaping was used to prevent script execution.

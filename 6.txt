@@ -1,0 +1,56 @@
+Exp No: 6
+PENETRATION TESTING USING KALI LINUX
+Date:
+
+AIM:
+To perform penetration testing on a vulnerable local system using Kali Linux tools and identify security vulnerabilities.
+
+Software requirements:
+• Kali Linux
+• Nmap
+• Nikto
+• OWASP ZAP
+• OWASP Juice Shop or DVWA
+
+Step 1: Identify the target IP address
+For a local lab:
+ip addr
+
+Step 2: Scan the local target
+nmap 127.0.0.1
+
+Step 3: Identify services and versions
+nmap -sV 127.0.0.1
+
+Step 4: Perform a detailed scan
+nmap -sC -sV 127.0.0.1
+
+Step 5: Scan the local web application using Nikto
+If the local application is running on port 3000:
+nikto -h http://127.0.0.1:3000
+
+Step 6: Perform web application testing
+1. Open OWASP ZAP.
+2. Enter the local application URL.
+3. Start the scan.
+4. Identify security alerts.
+5. Record the vulnerabilities.
+6. Suggest suitable security solutions.
+
+Step 7: Prepare the penetration testing report
+Example report:
+| Tool      | Observation                                      |
+| --------- | ------------------------------------------------ |
+| Nmap      | Identified open ports and running services       |
+| Nikto     | Scanned web server configuration and headers     |
+| OWASP ZAP | Identified potential application vulnerabilities |
+
+Countermeasures:
+• Close unnecessary ports and disable unneeded services.
+• Implement CSRF protection tokens across state-changing requests.
+• Prevent XSS using robust input validation, output encoding, and CSP headers.
+• Configure secure HTTP response headers (X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security).
+• Enforce secure, HttpOnly, and SameSite cookie flags.
+
+RESULT:
+Penetration testing was performed using Kali Linux tools, and the security status of the local practice application was assessed.

@@ -1,0 +1,69 @@
+Exp No: 5
+DEVELOP AND TEST SECURE TEST CASES
+Date:
+
+AIM:
+To develop and execute secure test cases to verify input validation and prevent unauthorized access.
+
+Software: Python 3.
+Program: secure_test.py
+
+import unittest
+import re
+
+# Secure username validation
+def validate_username(username):
+    if len(username) < 3:
+        return False
+    if not re.match(r'^[a-zA-Z0-9_]+$', username):
+        return False
+    return True
+
+# Secure password validation
+def validate_password(password):
+    if len(password) < 8:
+        return False
+    return True
+
+class SecurityTest(unittest.TestCase):
+    def test_valid_username(self):
+        self.assertTrue(validate_username("student123"))
+
+    def test_invalid_username(self):
+        self.assertFalse(validate_username("ab"))
+
+    def test_special_characters(self):
+        self.assertFalse(validate_username("student@123"))
+
+    def test_valid_password(self):
+        self.assertTrue(validate_password("Student123"))
+
+    def test_invalid_password(self):
+        self.assertFalse(validate_password("123"))
+
+    def test_empty_password(self):
+        self.assertFalse(validate_password(""))
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+Step 1: Save the file as secure_test.py
+
+Step 2: Execute:
+python -m unittest secure_test.py -v
+
+Sample output:
+test_empty_password ... ok
+test_invalid_password ... ok
+test_invalid_username ... ok
+test_special_characters ... ok
+test_valid_password ... ok
+test_valid_username ... ok
+
+Ran 6 tests
+
+OK
+
+RESULT:
+Secure test cases were developed and executed successfully to verify username and password validation.

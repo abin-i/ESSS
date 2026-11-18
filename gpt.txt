@@ -1,0 +1,196 @@
+Okay,  Let's do the actual practical using Windows only, in the same order as your lab manual. I'll keep it short, command-by-command, and explain what to do and what output to observe.
+
+### Windows practical – Penetration Testing
+
+No Kali Linux required
+
+### 1\. Software requirements
+
+Install these:
+
+* Nmap – [Download](https://nmap.org/download.html?utm_source=chatgpt.com)
+
+* OWASP ZAP – [Download](https://www.zaproxy.org/download/?utm_source=chatgpt.com)
+
+* Docker Desktop – [Download](https://www.docker.com/products/docker-desktop/?utm_source=chatgpt.com)
+
+* Nikto – [Download](https://github.com/sullo/nikto?utm_source=chatgpt.com) (requires Perl)
+
+For the target, we use OWASP Juice Shop.
+
+### 2\. Start the vulnerable application
+
+Step 1: Open Docker Desktop and wait until it is running.
+
+Step 2: Open Windows PowerShell and type:
+
+```powershell
+docker run --rm -d --name juice-shop -p 3000:3000 bkimminich/juice-shop
+```
+
+Step 3: Open your browser:
+
+```text
+http://localhost:3000
+```
+
+![Dockerode: Streamlining Docker Management using Node.js | by Abylin Johnson | Medium](https://images.openai.com/static-rsc-4/NroVFK4WtZKSyCMfHWaBoTTrID8Lil1tegmmHdassj5D12bd1tgCmFU-RBDzZuxL9IInKMOe6ZnV69YouBOF07ZOjtXURGQzt88POWvO_G2ME0QOz-xgBkwN0wlsfC--GrYT-q-z-n5TsC2-Du8Wqi5w2NR32N7HMVr8lc6wvCtBO_1TVdO1ibklhng92wEP?purpose=fullsize)
+
+If the page opens, your target is ready.
+
+### 3\. Perform Nmap scanning
+
+Step 1: Open Command Prompt (CMD).
+
+Step 2: Check Nmap:
+
+```cmd
+nmap --version
+```
+
+Step 3: Scan the local application port:
+
+```cmd
+nmap -p 3000 127.0.0.1
+```
+
+Expected output:
+
+```text
+PORT     STATE SERVICE
+3000/tcp open  ppp
+```
+
+Step 4: Detect service versions:
+
+```cmd
+nmap -sV -p 3000 127.0.0.1
+```
+
+Step 5: Detailed scan:
+
+```cmd
+nmap -sC -sV -p 3000 127.0.0.1
+```
+
+Note: The exact service identification and output depend on your installation.
+
+### 4\. Perform Nikto scanning
+
+Install Perl and download Nikto from its GitHub repository.
+
+Open PowerShell in the extracted Nikto folder and run:
+
+```powershell
+perl .\program\nikto.pl -h http://127.0.0.1:3000
+```
+
+Nikto will scan the local web server.
+
+Observe:
+
+* Target hostname and IP.
+
+* Target port.
+
+* Server information.
+
+* Missing security headers.
+
+* Potential misconfigurations.
+
+### 5\. Perform OWASP ZAP testing
+
+Step 1: Open OWASP ZAP from the Windows Start menu.
+
+Step 2: Select Temporary Session and click Start.
+
+Step 3: Select Automated Scan on the home screen.
+
+![Top 18 Automated Pentesting Tools Every DevSecOps Team Should Know | Aikido](https://images.openai.com/static-rsc-4/7NRgFcElJmOS3e9UhKV5JIoKWz2z0aunYq9snHhSCPgDc3y3QVTFHpSEQbgCNC1C-WBlntWwwI8py6l3xtyohJo4wR0aX1C42qNEYJlUGOxwom-f4aD6MYliEkBsOEKTpxrn7GrZlOyCtkEu-IJrk8CIGzsbUtJ5Um2zbQ0TNBh0fGv0D7747ObBZnqS3Qjg?purpose=fullsize)
+
+Step 4: Enter the target URL:
+
+```text
+http://127.0.0.1:3000
+```
+
+Step 5: Click Attack and wait for scanning to complete.
+
+Step 6: Open the Alerts tab.
+
+![Vulnerability testing | PHsPeed](https://images.openai.com/static-rsc-4/3WZtYSB4f0ETo1z6m_5TuI0xl8bYhGUx8UKFdqqeLTVNBfuW0o_-FjIGewGUDz_Se-YQMvLV67nMaqFi5j-zsh-O_RzQ5jxfdcyiLaNXidiIjZYz-H2jniqcGoZkUlH5ix5eXcmPqaCvRTPR6GvRTazLg7WHXSNLhcI3n0aTdVFI2iX7hxnpFy6IOpb0qB5M?purpose=fullsize)
+
+Observe the vulnerabilities, such as:
+
+* Missing Anti-CSRF Tokens.
+
+* Missing security headers.
+
+* Cookie security issues.
+
+* Information disclosure.
+
+Record the actual alerts displayed. Only scan your own Juice Shop application with active scanning.
+
+### 6\. Prepare the report
+
+Write your findings like this:
+
+| Tool      | Observation                                      |
+| --------- | ------------------------------------------------ |
+| Nmap      | Identified open port 3000                        |
+| Nikto     | Examined web server security                     |
+| OWASP ZAP | Identified potential application vulnerabilities |
+
+Countermeasures:
+
+* Close unnecessary ports.
+
+* Implement CSRF protection.
+
+* Prevent XSS using input validation and output encoding.
+
+* Configure security headers.
+
+* Use secure cookies.
+
+### 7\. Result
+
+Penetration testing was performed on the local OWASP Juice Shop application using Nmap, Nikto and OWASP ZAP. Open ports, running services and potential security vulnerabilities were identified, and suitable countermeasures were suggested.
+
+### Last-minute practical checklist
+
+Practical completion
+
+0/10
+
+Start Docker Desktop and Juice Shop
+
+Open http://localhost:3000
+
+Run Nmap basic scan
+
+Run Nmap service detection
+
+Run Nmap detailed scan
+
+Run Nikto scan
+
+Open OWASP ZAP
+
+Perform Automated Scan
+
+Check Alerts and record findings
+
+Write countermeasures and result
+
+Remember these three things for viva:
+
+* Nmap = Network scanning.
+
+* Nikto = Web server scanning.
+
+* OWASP ZAP = Web application security scanning.
+
+That's the entire experiment in Windows, without needing Kali Linux.

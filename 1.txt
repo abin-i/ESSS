@@ -1,0 +1,132 @@
+Exp No: 1
+IMPLEMENT SQL INJECTION ATTACK
+Date:
+Exp No: 1
+IMPLEMENT SQL INJECTION ATTACK
+Date:
+
+AIM:
+To implement and understand an SQL Injection attack and demonstrate how parameterized queries prevent it.
+
+Software: Python 3, SQLite.
+Program: Vulnerable SQL login
+Python Program: sql_injection.py
+
+import sqlite3
+
+con = sqlite3.connect("student.db") 
+cur = con.cursor()
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS users (
+username TEXT, 
+password TEXT 
+)
+""")
+
+cur.execute("DELETE FROM users")
+cur.execute("INSERT INTO users VALUES ('admin', '1234')") 
+cur.execute("INSERT INTO users VALUES ('student', '5678')")
+con.commit()
+
+print("SQL Injection Demonstration")
+username = input("Enter Username: ")
+password = input("Enter Password: ")
+
+# Vulnerable SQL query
+query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'"
+
+print("\nExecuting:", query)
+try:
+    cur.execute(query)
+    result = cur.fetchall()
+    if result:
+        print("Login Successful!")
+        print("SQL Injection may have bypassed authentication.")
+    else:
+        print("Invalid Username or Password")
+except sqlite3.Error as e:
+    print("SQL Error:", e)
+
+con.close()
+
+
+Sample input (local demonstration):
+Enter Username: ' OR '1'='1' --
+Password: anything
+
+Sample output:
+SQL Injection Demonstration 
+Login Successful!
+SQL Injection may have bypassed authentication.
+
+Prevention program: Replace the vulnerable query with a parameterized query.
+query = "SELECT * FROM users WHERE username=? AND password=?"
+cur.execute(query, (username, password))
+
+
+
+
+RESULT:
+SQL Injection was demonstrated in a local SQLite application. Parameterized queries prevent this form of SQL injection.
+AIM:
+To implement and understand an SQL Injection attack and demonstrate how parameterized queries prevent it.
+
+Software: Python 3, SQLite.
+Program: Vulnerable SQL login
+Python Program: sql_injection.py
+
+import sqlite3
+
+con = sqlite3.connect("student.db") 
+cur = con.cursor()
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS users (
+username TEXT, 
+password TEXT 
+)
+""")
+
+cur.execute("DELETE FROM users")
+cur.execute("INSERT INTO users VALUES ('admin', '1234')") 
+cur.execute("INSERT INTO users VALUES ('student', '5678')")
+con.commit()
+
+print("SQL Injection Demonstration")
+username = input("Enter Username: ")
+password = input("Enter Password: ")
+
+# Vulnerable SQL query
+query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'"
+
+print("\nExecuting:", query)
+try:
+    cur.execute(query)
+    result = cur.fetchall()
+    if result:
+        print("Login Successful!")
+        print("SQL Injection may have bypassed authentication.")
+    else:
+        print("Invalid Username or Password")
+except sqlite3.Error as e:
+    print("SQL Error:", e)
+
+con.close()
+
+
+Sample input (local demonstration):
+Enter Username: ' OR '1'='1' --
+Password: anything
+
+Sample output:
+SQL Injection Demonstration 
+Login Successful!
+SQL Injection may have bypassed authentication.
+
+Prevention program: Replace the vulnerable query with a parameterized query.
+query = "SELECT * FROM users WHERE username=? AND password=?"
+cur.execute(query, (username, password))
+
+RESULT:
+SQL Injection was demonstrated in a local SQLite application. Parameterized queries prevent this form of SQL injection.

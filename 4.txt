@@ -1,0 +1,54 @@
+Exp No: 4
+PENETRATION TESTING ON A WEB APPLICATION USING KALI LINUX
+Date:
+
+AIM:
+To gather information about a local web application and perform authorized XSS and SQL Injection security tests using Kali Linux tools.
+
+Software requirements:
+• Kali Linux
+• OWASP Juice Shop
+• Nmap
+• OWASP ZAP
+
+Step 1: Check the target application
+Use an intentionally vulnerable application running locally.
+Example target: 
+http://127.0.0.1:3000
+
+Step 2: Gather system information
+Open Kali Linux terminal:
+nmap -sV -p 3000 127.0.0.1
+This command identifies the service and version information on port 3000.
+
+Step 3: Check HTTP response
+curl -I http://127.0.0.1:3000
+
+Step 4: Perform web vulnerability scanning
+Open OWASP ZAP:
+1. Start ZAP.
+2. Select Automated Scan.
+3. Enter the local Juice Shop URL.
+4. Start the scan.
+5. Observe the alerts.
+
+Step 5: Test XSS
+In the Juice Shop search field, enter this harmless test string:
+<script>alert('XSS')</script>
+Observe whether the application executes or safely handles the input.
+
+Step 6: Test SQL Injection
+Use the Juice Shop login form and inspect its behavior with SQL injection test inputs in the authorized lab environment.
+
+Step 7: Prepare a vulnerability report
+Record:
+• Target application
+• Open ports
+• Service information
+• XSS test result
+• SQL injection test result
+• Vulnerability severity
+• Recommended prevention
+
+RESULT:
+Information gathering and web application security testing were performed using Kali Linux tools on a local practice application.
